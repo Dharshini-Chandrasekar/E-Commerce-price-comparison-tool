@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Scraped Products</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Source</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Product Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product[0] }}</td>
+                <td>{{ product[1] }}</td>
+                <td>{{ product[2] }}</td>
+                <td>{{ product[3] }}</td>
+                <td><a href="{{ product[4] }}" target="_blank">Product Link</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/analysis">Data Analysis</a>
+</body>
+</html>

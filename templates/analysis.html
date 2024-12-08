@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Price Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 45%;
+            height: 200px;
+            margin: 10px;
+            display: inline-block;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .chart-wrapper {
+            height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <!-- Pie Chart -->
+        <div class="chart-wrapper">
+            <canvas id="pieChart"></canvas>
+        </div>
+
+        <!-- Stacked Bar Chart -->
+        <div class="chart-wrapper">
+            <canvas id="barChart"></canvas>
+        </div>
+
+        <!-- Column Chart -->
+        <div class="chart-wrapper">
+            <canvas id="columnChart"></canvas>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="chart-wrapper">
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data for Amazon and eBay Prices
+        const amazonPrices = [199, 299, 249, 399, 259, 329];
+        const ebayPrices = [189, 315, 259, 389, 269, 309];
+
+        // Pie Chart - Price distribution
+        var pieChart = new Chart(document.getElementById('pieChart'), {
+            type: 'pie',
+            data: {
+                labels: ['Amazon', 'eBay'],
+                datasets: [{
+                    label: 'Price Distribution',
+                    data: [amazonPrices.length, ebayPrices.length],
+                    backgroundColor: ['#FF6384', '#36A2EB'],
+                }]
+            }
+        });
+
+        // Stacked Bar Chart - Price comparison (Total Price for Amazon vs eBay)
+        var barChart = new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Amazon', 'eBay'],
+                datasets: [{
+                    label: 'Total Prices',
+                    data: [
+                        amazonPrices.reduce((a, b) => a + b, 0),
+                        ebayPrices.reduce((a, b) => a + b, 0)
+                    ],
+                    backgroundColor: '#FFCE56',
+                    stack: true
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+
+        // Column Chart - Average Price Comparison (Amazon vs eBay)
+        var columnChart = new Chart(document.getElementById('columnChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Amazon', 'eBay'],
+                datasets: [{
+                    label: 'Average Price',
+                    data: [
+                        amazonPrices.reduce((a, b) => a + b, 0) / amazonPrices.length,
+                        ebayPrices.reduce((a, b) => a + b, 0) / ebayPrices.length
+                    ],
+                    backgroundColor: '#36A2EB',
+                }]
+            }
+        });
+
+        // Line Chart - Price trends over time (Amazon vs eBay)
+        var lineChart = new Chart(document.getElementById('lineChart'), {
+            type: 'line',
+            data: {
+                labels: [...Array(amazonPrices.length).keys()],
+                datasets: [{
+                    label: 'Amazon Price Trend',
+                    data: amazonPrices,
+                    fill: false,
+                    borderColor: '#FF6384',
+                    tension: 0.1
+                }, {
+                    label: 'eBay Price Trend',
+                    data: ebayPrices,
+                    fill: false,
+                    borderColor: '#36A2EB',
+                    tension: 0.1
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
+
+

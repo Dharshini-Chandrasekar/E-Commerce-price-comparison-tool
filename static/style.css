@@ -1,0 +1,12 @@
+/* Add these styles in your styles.css */
+.analysis-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-gap: 20px;
+    margin-top: 20px;
+}
+
+.chart {
+    width: 100%;
+    height: 300px; /* Set fixed height */
+}
